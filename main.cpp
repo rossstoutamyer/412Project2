@@ -6,12 +6,17 @@
 #include <random>
 #include <unistd.h>
 
-void RandomRequests(LoadBalancer &lb); /**Function to add requeust randomly each clock cycle*/
-void ScaleServers(LoadBalancer &lb, int newNumRequests, int threshold); /**Function to add or remove servers when threshold is not met*/
-void SimulateBurst(LoadBalancer &lb, int burstChance); /**Function to simulate a burst of access to force change in number of servers drastically*/
+/**Function to add requests randomly each clock cycle*/
+void RandomRequests(LoadBalancer &lb); 
 
-int main(int argc, char *argv[])
-{
+/**Function to add or remove servers when threshold is not met*/
+void ScaleServers(LoadBalancer &lb, int newNumRequests, int threshold); 
+
+/**Function to simulate a burst of access to force change in number of servers drastically*/
+void SimulateBurst(LoadBalancer &lb, int burstChance); 
+
+/**The main function runs through the clock cycles and completes or adds servers and requests based upon remaining requests and randomness respectively*/
+int main(int argc, char *argv[]) {
     int opt;
     int numServers = 10; /**Default number of servers*/
     int numTicks = 10000; /**Default number of clock cycles*/
@@ -33,7 +38,7 @@ int main(int argc, char *argv[])
     int currRequests = numRequests; /**This will keep track of the current number of requests to see if more or less servers are needed*/
 
     for (int i = 0; i < numTicks; ++i) {
-        if (i > 0 && i % 50 == 0) { /**Rvery 50 ticks, I decided to look at the request queue and add or subtract servers*/
+        if (i > 0 && i % 50 == 0) { /**Every 50 ticks, I decided to look at the request queue and add or subtract servers*/
             currRequests = lb.size();
             ScaleServers(lb, currRequests, numRequests * 4 / 5); /**This function scales the number of servers to try and meet a threshold of 80% of the original requests*/
         }

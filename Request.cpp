@@ -4,13 +4,15 @@
 #include <string>
 #include <random>
 
-Request::Request() { /**The default constructor generates a random ipIn, ipOut, and time between 2 and 500*/
+/**The default constructor generates a random ipIn, ipOut, and time between 2 and 500*/
+Request::Request() {
     this->ipIn = generateIP();
     this->ipOut = generateIP();
     this->time = 2 + rand() % 499;
 }
 
-std::string Request::generateIP() { /**ChatGPT generated this to get a random ip address*/
+/**ChatGPT generated this to get a random ip address*/
+std::string Request::generateIP() { 
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> dis(0, 255); /**Ip address numbers cannot be larger than 255*/
@@ -26,14 +28,17 @@ std::string Request::generateIP() { /**ChatGPT generated this to get a random ip
     return ip;
 }
 
+/**Returns the time of a request to simulate fulfilling*/
 int Request::getTime() {
-    return this->time; /**Returns the time of a request to simulate fulfilling*/
+    return this->time;
 }
 
+/**Gets ipIn to output when job is done*/
 std::string Request::getIPIn() {
-    return this->ipIn; /**Gets ipIn to output when job is done*/
+    return this->ipIn; 
 }
 
+/**Gets ipOut to output when job is done*/
 std::string Request::getIPOut() {
-    return this->ipOut; /**Gets ipOut to output when job is done*/
+    return this->ipOut; 
 }
